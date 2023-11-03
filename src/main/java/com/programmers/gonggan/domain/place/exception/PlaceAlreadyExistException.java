@@ -1,7 +1,9 @@
 package com.programmers.gonggan.domain.place.exception;
 
+import com.programmers.gonggan.common.exception.ErrorCode;
+
 public class PlaceAlreadyExistException extends RuntimeException {
-    public PlaceAlreadyExistException(String message) {
-        super(message);
+    public PlaceAlreadyExistException() {
+        super(ErrorCode.PLACE_ALREADY_EXIST.getMessage());
     }
 }

@@ -26,7 +26,7 @@ public class PlaceService {
     public Place createPlace(PlaceServiceRequestDto placeServiceRequestDto) {
         placeRepository.findByNameAndAddress(placeServiceRequestDto.getName(), placeServiceRequestDto.getAddress())
                 .ifPresent(place -> {
-                    throw new PlaceAlreadyExistException(ErrorCode.PLACE_ALREADY_EXIST.getMessage());
+                    throw new PlaceAlreadyExistException();
                 });
         return placeRepository.save(placeServiceRequestDto.toEntity(localDateTimeValueStrategy.generateLocalDateTime()));
     }
@@ -35,7 +35,7 @@ public class PlaceService {
     public Place findPlaceById(PlaceServiceRequestDto placeServiceRequestDto) {
         return placeRepository.findByPlaceId(placeServiceRequestDto.getPlaceId()).orElseThrow(() -> {
             log.warn(ErrorCode.PLACE_NOT_FOUND.getMessage());
-            return new PlaceNotFoundException(ErrorCode.PLACE_NOT_FOUND.getMessage());
+            return new PlaceNotFoundException();
         });
     }
 
