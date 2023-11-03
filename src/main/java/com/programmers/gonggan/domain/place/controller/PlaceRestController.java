@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/api/v1/places")
+
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/places")
 public class PlaceRestController {
     private final PlaceService placeService;
 
