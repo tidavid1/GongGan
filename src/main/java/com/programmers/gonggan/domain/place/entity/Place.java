@@ -2,16 +2,11 @@ package com.programmers.gonggan.domain.place.entity;
 
 import com.programmers.gonggan.domain.place.model.Category;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "place")
@@ -40,6 +35,15 @@ public class Place {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Builder
+    protected Place(String name, String address, String description, Category category, LocalDateTime createdAt) {
+        this.name = name;
+        this.address = address;
+        this.description = description;
+        this.category = category;
+        this.createdAt = createdAt;
+    }
 
     public void updateName(String name, LocalDateTime updatedAt) {
         this.name = name;

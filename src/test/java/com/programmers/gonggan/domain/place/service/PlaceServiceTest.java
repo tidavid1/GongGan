@@ -34,7 +34,6 @@ class PlaceServiceTest {
     private static final String DESCRIPTION = "description";
     private static final long PLACE_ID = 1L;
     private static final Place PLACE = Place.builder()
-            .placeId(PLACE_ID)
             .name(NAME)
             .address(ADDRESS)
             .category(CATEGORY)

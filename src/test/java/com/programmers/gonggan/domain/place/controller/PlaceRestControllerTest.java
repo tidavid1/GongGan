@@ -30,7 +30,6 @@ class PlaceRestControllerTest {
     private static final Category CATEGORY = Category.OFFICE;
     private static final String CATEGORY_STR = CATEGORY.name();
     private static final Place PLACE = Place.builder()
-            .placeId(1L)
             .name(NAME)
             .address("address")
             .category(CATEGORY)

@@ -26,7 +26,8 @@
     <div class="mb-3">
         <label for="category" class="form-label">카테고리</label>
         <select id="category" name="category" class="form-select">
-            <option th:each="category : ${categories}" th:value="${category}" th:utext="${category}"></option>
+            <option th:each="category : ${categories}" th:value="${category}"
+                    th:utext="${category.getName()}"></option>
         </select>
     </div>
     <div class="col-4">
