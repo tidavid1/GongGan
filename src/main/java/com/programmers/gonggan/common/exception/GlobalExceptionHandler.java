@@ -1,6 +1,7 @@
 package com.programmers.gonggan.common.exception;
 
 import com.programmers.gonggan.common.model.CommonResult;
+import com.programmers.gonggan.domain.place.exception.CategoryNotFoundException;
 import com.programmers.gonggan.domain.place.exception.PlaceAlreadyExistException;
 import com.programmers.gonggan.domain.place.exception.PlaceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,11 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected CommonResult<String> placeAlreadyExistException(PlaceAlreadyExistException e) {
         return CommonResult.getFailResult(ErrorCode.PLACE_ALREADY_EXIST.getCode(), ErrorCode.PLACE_ALREADY_EXIST.getMessage());
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected CommonResult<String> categoryNotFoundException(CategoryNotFoundException e) {
+        return CommonResult.getFailResult(ErrorCode.CATEGORY_NOT_FOUND.getCode(), ErrorCode.CATEGORY_NOT_FOUND.getMessage());
     }
 }

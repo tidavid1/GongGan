@@ -32,7 +32,7 @@ public class PlaceRestController {
                     .build());
         } else if (category != null) {
             result = placeService.findPlacesByCategory(PlaceServiceRequestDto.builder()
-                    .category(Category.valueOf(category))
+                    .category(Category.of(category))
                     .build());
         } else {
             result = placeService.findAllPlaces();

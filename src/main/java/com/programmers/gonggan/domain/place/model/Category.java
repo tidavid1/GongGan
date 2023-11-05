@@ -1,6 +1,9 @@
 package com.programmers.gonggan.domain.place.model;
 
+import com.programmers.gonggan.domain.place.exception.CategoryNotFoundException;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 @Getter
 public enum Category {
@@ -13,9 +16,16 @@ public enum Category {
     OFFICE("사무실"),
     STUDY_ROOM("스터디룸");
 
-    private final String name;
+    private final String value;
 
-    Category(String name) {
-        this.name = name;
+    Category(String value) {
+        this.value = value;
+    }
+
+    public static Category of(String value) {
+        return Arrays.stream(Category.values())
+                .filter(category -> category.name().equals(value))
+                .findAny()
+                .orElseThrow(CategoryNotFoundException::new);
     }
 }
