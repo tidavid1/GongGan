@@ -2,14 +2,12 @@ package com.programmers.gonggan.domain.place.repository;
 
 import com.programmers.gonggan.domain.place.entity.Place;
 import com.programmers.gonggan.domain.place.model.Category;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,8 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 class PlaceRepositoryTest {
 
-    @Container
-    private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>(DockerImageName.parse("mysql:latest"));
     private static final LocalDateTime CREATED_AT = LocalDateTime.now();
     private static final String NAME = "name";
     private static final String ADDRESS = "address";
