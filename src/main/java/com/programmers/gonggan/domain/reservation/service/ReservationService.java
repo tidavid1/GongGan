@@ -104,7 +104,8 @@ public class ReservationService {
 
     private void verifyDuplicatedReservation(List<Reservation> reservations, LocalDateTime startAt, LocalDateTime endAt) {
         reservations.stream()
-                .map(reservation -> (reservation.isDuplicated(startAt) || reservation.isDuplicated(endAt)))
+                .filter(reservation -> reservation.getStatus().equals(Status.APPROVED))
+                .filter(reservation -> reservation.isDuplicated(startAt) || reservation.isDuplicated(endAt))
                 .findAny()
                 .ifPresent(ignore -> {
                     throw new ReservationNotDuplicateException();
