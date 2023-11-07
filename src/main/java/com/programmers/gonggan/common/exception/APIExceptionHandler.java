@@ -1,6 +1,7 @@
 package com.programmers.gonggan.common.exception;
 
 import com.programmers.gonggan.common.model.CommonResult;
+import com.programmers.gonggan.domain.place.controller.PlaceRestController;
 import com.programmers.gonggan.domain.place.exception.CategoryNotFoundException;
 import com.programmers.gonggan.domain.place.exception.PlaceAlreadyExistException;
 import com.programmers.gonggan.domain.place.exception.PlaceNotFoundException;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
-public class GlobalExceptionHandler {
+@RestControllerAdvice(assignableTypes = {PlaceRestController.class})
+public class APIExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

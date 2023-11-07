@@ -5,14 +5,10 @@ import com.programmers.gonggan.domain.place.dto.PlaceServiceRequestDto;
 import com.programmers.gonggan.domain.place.model.Category;
 import com.programmers.gonggan.domain.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.function.Consumer;
-
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/places")
@@ -49,53 +45,38 @@ public class PlaceWebController {
     }
 
     @PostMapping
-    public String newPlace(PlaceControllerRequestDto placeControllerRequestDto, Model model) {
-        return execute(placeService::createPlace
-                , PlaceServiceRequestDto.builder()
-                        .name(placeControllerRequestDto.getName())
-                        .address(placeControllerRequestDto.getAddress())
-                        .description(placeControllerRequestDto.getDescription())
-                        .category(Category.valueOf(placeControllerRequestDto.getCategory()))
-                        .build()
-                , model);
+    public String newPlace(PlaceControllerRequestDto placeControllerRequestDto) {
+        placeService.createPlace(PlaceServiceRequestDto.builder()
+                .name(placeControllerRequestDto.getName())
+                .address(placeControllerRequestDto.getAddress())
+                .description(placeControllerRequestDto.getDescription())
+                .category(Category.valueOf(placeControllerRequestDto.getCategory()))
+                .build());
+        return "redirect:/";
     }
 
     @PutMapping
-    public String updatePlace(PlaceControllerRequestDto placeControllerRequestDto, Model model) {
-        return execute(placeService::updatePlace
-                , PlaceServiceRequestDto.builder()
-                        .placeId(placeControllerRequestDto.getPlaceId())
-                        .name(placeControllerRequestDto.getName())
-                        .address(placeControllerRequestDto.getAddress())
-                        .description(placeControllerRequestDto.getDescription())
-                        .build()
-                , model);
+    public String updatePlace(PlaceControllerRequestDto placeControllerRequestDto) {
+        placeService.updatePlace(PlaceServiceRequestDto.builder()
+                .placeId(placeControllerRequestDto.getPlaceId())
+                .name(placeControllerRequestDto.getName())
+                .address(placeControllerRequestDto.getAddress())
+                .description(placeControllerRequestDto.getDescription())
+                .build());
+        return "redirect:/";
     }
 
     @DeleteMapping
-    public String deletePlace(PlaceControllerRequestDto placeControllerRequestDto, Model model) {
-        return execute(placeService::deletePlace
-                , PlaceServiceRequestDto.builder()
-                        .placeId(placeControllerRequestDto.getPlaceId())
-                        .build()
-                , model);
+    public String deletePlace(PlaceControllerRequestDto placeControllerRequestDto) {
+        placeService.deletePlace(PlaceServiceRequestDto.builder()
+                .placeId(placeControllerRequestDto.getPlaceId())
+                .build());
+        return "redirect:/";
     }
 
     @DeleteMapping("/all")
     public String deleteAllPlaces() {
         placeService.deleteAllPlaces();
-        return "redirect:/";
-    }
-
-    private String execute(Consumer<PlaceServiceRequestDto> consumer, PlaceServiceRequestDto placeServiceRequestDto, Model model) {
-        try {
-            consumer.accept(placeServiceRequestDto);
-        } catch (Exception e) {
-            log.warn(e.toString());
-            model.addAttribute("name", e.getClass().getName());
-            model.addAttribute("message", e.getMessage());
-            return "/error";
-        }
         return "redirect:/";
     }
 }

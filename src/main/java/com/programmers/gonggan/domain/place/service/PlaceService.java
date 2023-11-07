@@ -1,6 +1,5 @@
 package com.programmers.gonggan.domain.place.service;
 
-import com.programmers.gonggan.common.exception.ErrorCode;
 import com.programmers.gonggan.common.util.LocalDateTimeValueStrategy;
 import com.programmers.gonggan.domain.place.dto.PlaceServiceRequestDto;
 import com.programmers.gonggan.domain.place.entity.Place;
@@ -8,13 +7,11 @@ import com.programmers.gonggan.domain.place.exception.PlaceAlreadyExistException
 import com.programmers.gonggan.domain.place.exception.PlaceNotFoundException;
 import com.programmers.gonggan.domain.place.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -25,19 +22,13 @@ public class PlaceService {
 
     public Place createPlace(PlaceServiceRequestDto placeServiceRequestDto) {
         placeRepository.findByNameAndAddress(placeServiceRequestDto.getName(), placeServiceRequestDto.getAddress())
-                .ifPresent(place -> {
-                    log.warn(ErrorCode.PLACE_ALREADY_EXIST.getMessage());
-                    throw new PlaceAlreadyExistException();
-                });
+                .ifPresent(place -> {throw new PlaceAlreadyExistException();});
         return placeRepository.save(placeServiceRequestDto.toEntity(localDateTimeValueStrategy.generateLocalDateTime()));
     }
 
     @Transactional(readOnly = true)
     public Place findPlaceById(PlaceServiceRequestDto placeServiceRequestDto) {
-        return placeRepository.findByPlaceId(placeServiceRequestDto.getPlaceId()).orElseThrow(() -> {
-            log.warn(ErrorCode.PLACE_NOT_FOUND.getMessage());
-            return new PlaceNotFoundException();
-        });
+        return placeRepository.findByPlaceId(placeServiceRequestDto.getPlaceId()).orElseThrow(PlaceNotFoundException::new);
     }
 
     @Transactional(readOnly = true)

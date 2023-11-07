@@ -8,10 +8,7 @@ import com.programmers.gonggan.domain.place.model.Category;
 import com.programmers.gonggan.domain.place.service.PlaceService;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +37,14 @@ public class PlaceRestController {
         return CommonResult.getListResult(result.stream()
                 .map(PlaceControllerResponseDto::of)
                 .toList());
+    }
+
+    @GetMapping("/{placeId}")
+    public CommonResult<PlaceControllerResponseDto> findPlaceById(@PathVariable Long placeId) {
+        return CommonResult.getSingleResult(
+                PlaceControllerResponseDto.of(
+                        placeService.findPlaceById(PlaceServiceRequestDto.builder()
+                                .placeId(placeId)
+                                .build())));
     }
 }
