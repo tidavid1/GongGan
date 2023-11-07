@@ -5,13 +5,14 @@ import com.programmers.gonggan.domain.place.controller.PlaceRestController;
 import com.programmers.gonggan.domain.place.exception.CategoryNotFoundException;
 import com.programmers.gonggan.domain.place.exception.PlaceAlreadyExistException;
 import com.programmers.gonggan.domain.place.exception.PlaceNotFoundException;
+import com.programmers.gonggan.domain.reservation.controller.ReservationRestController;
 import com.programmers.gonggan.domain.reservation.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(assignableTypes = {PlaceRestController.class})
+@RestControllerAdvice(assignableTypes = {PlaceRestController.class, ReservationRestController.class})
 public class APIExceptionHandler {
 
     @ExceptionHandler(Exception.class)

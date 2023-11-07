@@ -63,6 +63,11 @@ public class ReservationService {
         return reservationRepository.findByPlace(place);
     }
 
+    @Transactional(readOnly = true)
+    public List<Reservation> findAllReservations() {
+        return reservationRepository.findAll();
+    }
+
     public void updateReservationTimes(ReservationServiceRequestDto reservationServiceRequestDto) {
         verifyReservationTime(reservationServiceRequestDto.getStartAt(), reservationServiceRequestDto.getEndAt());
         Reservation reservation = findReservationById(reservationServiceRequestDto);
