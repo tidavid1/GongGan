@@ -26,12 +26,13 @@ replay_pid*
 
 .gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
+!GongGan/gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### IntelliJ IDEA ###
-.idea
+/.idea/
+GongGan/.idea
 *.iws
 *.iml
 *.ipr
@@ -66,3 +67,4 @@ bin/
 
 ### Project ###
 HELP.md
+
