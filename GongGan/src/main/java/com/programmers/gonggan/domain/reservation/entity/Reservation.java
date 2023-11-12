@@ -73,8 +73,12 @@ public class Reservation {
         this.updatedAt = updatedAt;
     }
 
-    public boolean isDuplicated(LocalDateTime dateTime) {
-        return dateTime.isBefore(this.endAt) && dateTime.isAfter(this.startAt);
+    public boolean isDuplicated(LocalDateTime startAt, LocalDateTime endAt) {
+        if (this.startAt.isEqual(startAt) || this.endAt.isEqual(endAt)){
+            return true;
+        }
+        return !(((startAt.isAfter(this.endAt) || startAt.isEqual(this.endAt)) && endAt.isAfter(this.endAt)) ||
+                (startAt.isBefore(this.startAt) && (endAt.isEqual(this.startAt) || endAt.isBefore(this.startAt))));
     }
 
     @Override
